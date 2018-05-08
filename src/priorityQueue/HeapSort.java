@@ -64,6 +64,7 @@ public class HeapSort {
          */
         int par;
         if (index != 0) {
+            //index为偶数的情况
             if (index % 2 == 0) {
                 par = (index - 1) / 2;
                 //这里是小顶堆
@@ -82,6 +83,7 @@ public class HeapSort {
                 }
 
             } else {
+                //index为奇数的情况
                 par = index / 2;
                 if (arr[index] < arr[par]) {
                     swap(arr, index, par);
