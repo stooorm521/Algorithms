@@ -1,6 +1,7 @@
 package priorityQueue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -110,6 +111,93 @@ public class Solution2 {
         return new StringBuffer().append(new StringBuffer(s).reverse()).toString();
     }
 
+    public String reverseStr(String s, int k) {
+        StringBuffer rec = new StringBuffer();
+        int i = 1;
+        for (; i * k < s.length(); i++) {
+            rec.append(new StringBuffer(s.substring((i - 1) * k, i * k)).reverse());
+        }
+        return rec.append(new StringBuffer(s.substring((i - 1) * k, s.length())).reverse()).toString();
+    }
+
+
+    public String reverseVowels(String s) {
+        StringBuffer tmp = new StringBuffer(s);
+        for (int fast = 0, slow = -1; fast < tmp.length(); fast++) {
+            char re = tmp.charAt(fast);
+            if (re == 'a' | re == 'e' | re == 'i' | re == 'o' | re == 'u' | re == 'A' | re == 'E' | re == 'I' | re == 'O' | re == 'U') {
+                if (fast == 0) slow = 0;
+                else if (fast != 0 && slow == -1) slow = fast;
+                else {
+                    swap(slow, fast, tmp);
+                    slow = fast;
+                }
+            }
+        }
+        return tmp.toString();
+    }
+
+    void swap(int slow, int fast, StringBuffer tmp) {
+        if (fast < tmp.length()) {
+            char temp = tmp.charAt(fast);
+            tmp.setCharAt(fast, tmp.charAt(slow));
+            tmp.setCharAt(slow, temp);
+        }
+    }
+
+    public String reverseVowels2(String s) {
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+        while (left < right) {
+            if ("AEIOUaeiou".indexOf(chars[left]) < 0) left++;
+            else if ("AEIOUaeiou".indexOf(chars[right]) < 0) right--;
+            else {
+                char tmp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = tmp;
+                left++;
+                right--;
+            }
+        }
+        return new String(chars);
+    }
+
+
+    public int firstUniqChar(String s) {
+        int[] arr = new int[26];
+        for (int a = 0; a < arr.length; a++) arr[a] = -2;
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i) - 'a';
+            if (arr[c] == -2) arr[c] = i;
+            else if (arr[c] != -2 && arr[c] != -1) arr[c] = -1;
+        }
+        Arrays.sort(arr);
+        for (int j = 0; j < arr.length; j++) {
+            if (arr[j] != -2 && arr[j] != -1) {
+                return arr[j];
+            }
+        }
+        return -1;
+    }
+
+    public int countSegments(String s) {
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i);
+            int tmp = 0;
+            while (!((c > 64 && c <= 90) | (c > 96 && c <= 122))) {
+                i++;
+                if(i<s.length())
+                c = s.charAt(i);
+                else break;
+                tmp = 1;
+            }
+            if (tmp == 1) count++;
+        }
+        return count + 1;
+    }
+
     public static void main(String[] args) {
         TreeNode a0 = new TreeNode(3);
         a0.left = new TreeNode(3);
@@ -123,7 +211,9 @@ public class Solution2 {
         String[] tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
         String[] tokens2 = {"2", "1", "+", "3", "*"};
         String[] tokens3 = {"4", "13", "5", "/", "+"};
-        String cas="Hello I want you";
-        System.out.println(a.reverseString(cas));
+        String cas = "IEexplorerisAlwayNOtGood";
+        String ca = "     ";
+//        System.out.println(a.reverseVowels2(ca));
+        System.out.println(a.countSegments(ca));
     }
 }
