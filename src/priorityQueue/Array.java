@@ -33,7 +33,7 @@ public class Array {
     }
 
     // number combinations
-    int n;
+    int n=0;
     int[] nums;
     List<List<Integer>> result;
 
@@ -43,7 +43,7 @@ public class Array {
             item.addAll(values);
             result.add(item);
         }
-        for (int i = index; i < n; i++) {
+        for (int i = index; i <=n; i++) {
             if (nums[i] <= reserve) {
                 values.add(nums[i]);
                 find(values, i, reserve - nums[i]);
@@ -57,7 +57,7 @@ public class Array {
         Arrays.sort(candidates);
         for (int i = 1; i < candidates.length; i++) {
             if (candidates[i] != candidates[i - 1])
-                candidates[n++] = candidates[i];
+                candidates[++n] = candidates[i];
         }
         //去重 最后面多出来的没有管
         //记录下了最终的位置
@@ -89,9 +89,9 @@ public class Array {
 
     public static void main(String[] args) {
         Array a = new Array();
-//        int[] nums = {5, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 10};
+        int[] nums = {5, 2, 7, 8,12, 8, 8, 6, 1, 2, 9, 10};
 //        System.out.println(a.searchRange(nums, 8).toString());
         int[] b = {2,3,6,7};
-        System.out.println(a.combinationSum(b, 7));
+        System.out.println(a.combinationSum(nums, 13));
     }
 }
