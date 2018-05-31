@@ -35,14 +35,15 @@ public class deleteCycle {
         }
         return find;
     }
+
     public static int[] findErrorNums(int[] nums) {
         int[] res = new int[2];
         for (int i : nums) {
             if (nums[Math.abs(i) - 1] < 0) res[0] = Math.abs(i);
             else nums[Math.abs(i) - 1] *= -1;
         }
-        for (int i=0;i<nums.length;i++) {
-            if (nums[i] > 0) res[1] = i+1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) res[1] = i + 1;
         }
         return res;
     }
@@ -50,23 +51,35 @@ public class deleteCycle {
     public int[] findErrorNums2(int[] nums) {
         Set<Integer> set = new HashSet<>();
         int duplicate = 0, n = nums.length;
-        long sum = (n * (n+1)) / 2;
-        for(int i : nums) {
-            if(set.contains(i)) duplicate = i;
+        long sum = (n * (n + 1)) / 2;
+        for (int i : nums) {
+            if (set.contains(i)) duplicate = i;
             sum -= i;
             set.add(i);
         }
-        return new int[] {duplicate, (int)sum + duplicate};
+        return new int[]{duplicate, (int) sum + duplicate};
     }
+
+
+    //反手输出ListNode
+    public void printListNodeReverse(ListNode node) {
+        if (node != null) {
+            if (node.next != null) {
+                printListNodeReverse(node.next);
+            }
+            System.out.println(node.val);
+        }
+    }
+
     public static void main(String[] args) {
         int[] a = {3, 7, 6, 5, 2, 4, 1, 9, 7, 8, 4, 13};
         findDuplicate(a);
-        findErrorNums(new int[]{2,3,3,4,5,6});
+        findErrorNums(new int[]{2, 3, 3, 4, 5, 6});
 
         Object obj = new Object();
         System.gc();
         System.out.println();
-        obj =new Object();
+        obj = new Object();
         obj = new Object();
         System.gc();
         System.out.println();
